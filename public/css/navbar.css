@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
+
+ul#navbar.nav-color {
+  background-color: #ff00c3;
+}
+
+ul#navbar li a i#op-desk,
+ul#navbar div li.close {
+  display: none;
+  color: white;
+}
+
+.about-cont {
+  width: 150px;
+}
+
+.info-cont {
+  right: 20px;
+}
+
+.about-cont,
+.info-cont {
+  display: none;
+  position: fixed;
+  background-color: black;
+  box-shadow: 0px 8px 16px 0px rgba(121, 118, 118, 0.2);
+}
+
+.about-cont a:hover,
+.info-cont a:hover {
+  background-color: #ff00c3;
+}
+
+ul#navbar {
+  top: 0px;
+  font-family: "poppins";
+  transition: 0.5s;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: none;
+  z-index: 99999;
+}
+
+li.logo {
+  position: absolute;
+  left: 20px;
+}
+
+li.logo a:hover {
+  background-color: none;
+}
+
+li.logo a:hover {
+  background-color: black;
+}
+
+li.login-btn a {
+  background-color: #ff00c3;
+  padding: 14px 25px;
+}
+
+li.login-btn a:hover {
+  background-color: black;
+}
+
+li.daf-btn {
+  display: none;
+}
+
+.desk li {
+  float: left;
+}
+
+ul#navbar li a,
+ul#navbar .desk li a {
+  font-family: "poppins";
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 25px;
+  text-decoration: none;
+}
+
+@media (min-width: 901px) {
+  li.about-drop:hover .about-cont {
+    display: block;
+  }
+
+  li.info-drop:hover .info-cont {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  ul#navbar {
+    justify-content: space-between;
+  }
+  li.logo {
+    position: static;
+    display: block;
+  }
+
+  ul#navbar li a i#op-desk {
+    display: block;
+    font-size: 25px;
+  }
+
+  .desk {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    background-color: #ff00c3;
+    height: 100%;
+    width: 100%;
+  }
+
+  .desk .about-cont,
+  .desk .info-cont {
+    display: none;
+    position: static;
+    width: 100%;
+    background-color: #ff2fceda;
+    box-shadow: none;
+  }
+
+  ul#navbar .desk .close {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+  }
+
+  li.daf-btn {
+    display: block;
+  }
+
+  ul#navbar .op-about-cont .about-cont a:hover,
+  ul#navbar .op-info-cont .info-cont a:hover {
+    background-color: black;
+  }
+}

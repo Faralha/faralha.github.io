@@ -3,41 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convert HTML to Img Tags</title>
+  <title>Convert Links to Img Tags</title>
 </head>
 <body>
 
-  <textarea id="htmlInput" placeholder="Masukkan HTML dengan tag <img> di sini..."></textarea>
+  <textarea id="linksInput" placeholder="Masukkan tautan gambar di sini..."></textarea>
   <button onclick="convertAndDisplay()">Konversi</button>
 
   <div id="resultContainer"></div>
+  <button onclick="copyResult()">Salin</button>
 
   <script>
-    function convertHtmlToImgTags(htmlInput) {
-      const regex = /<img[^>]+src=['"]([^'"]+)['"][^>]*>/g;
-      const matches = htmlInput.match(regex);
-
-      if (!matches) {
-        return "Tidak ada tag gambar (<img>) ditemukan dalam HTML input.";
-      }
-
-      const linksArray = matches.map(match => {
-        const srcRegex = /src=['"]([^'"]+)['"]/;
-        const srcMatch = match.match(srcRegex);
-        return srcMatch ? srcMatch[1] : "";
-      });
-
+    function convertLinksToImgTags(linksInput) {
+      const linksArray = linksInput.trim().split('\n');
+      
       const imgTags = linksArray.map(link => `<img src="${link}" alt="Image">`);
-
       return imgTags.join('\n');
     }
 
     function convertAndDisplay() {
-      const htmlInput = document.getElementById('htmlInput').value;
+      const linksInput = document.getElementById('linksInput').value;
       const resultContainer = document.getElementById('resultContainer');
-      const result = convertHtmlToImgTags(htmlInput);
+      const result = convertLinksToImgTags(linksInput);
       
-      resultContainer.innerHTML = result;
+      resultContainer.textContent = result;
+    }
+
+    function copyResult() {
+      const resultContainer = document.getElementById('resultContainer');
+      const resultText = resultContainer.textContent || resultContainer.innerText;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = resultText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      alert('Hasil telah disalin ke papan klip!');
     }
   </script>
 

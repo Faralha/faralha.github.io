@@ -1,48 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convert Links to Img Tags</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Tag Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-
-  <textarea id="linksInput" placeholder="Masukkan tautan gambar di sini..."></textarea>
-  <button onclick="convertAndDisplay()">Konversi</button>
-
-  <div id="resultContainer"></div>
-  <button onclick="copyResult()">Salin</button>
-
-  <script>
-    function convertLinksToImgTags(linksInput) {
-      const linksArray = linksInput.trim().split('\n');
-      
-      const imgTags = linksArray.map(link => `<img src="${link}" alt="Image">`);
-      return imgTags.join('\n');
-    }
-
-    function convertAndDisplay() {
-      const linksInput = document.getElementById('linksInput').value;
-      const resultContainer = document.getElementById('resultContainer');
-      const result = convertLinksToImgTags(linksInput);
-      
-      resultContainer.textContent = result;
-    }
-
-    function copyResult() {
-      const resultContainer = document.getElementById('resultContainer');
-      const resultText = resultContainer.textContent || resultContainer.innerText;
-
-      const tempInput = document.createElement('textarea');
-      tempInput.value = resultText;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-
-      alert('Hasil telah disalin ke papan klip!');
-    }
-  </script>
-
+    <div class="container">
+        <h1>Image Tag Generator</h1>
+        <label for="blobLink">Main Blob Link:</label>
+        <input type="text" id="blobLink" value="https://cdn.alterkaiscans.my.id/mahoako">
+        
+        <label for="prefix">Prefix:</label>
+        <input type="text" id="prefix" value="MAHOAKO-01">
+        
+        <label for="numImages">Number of Images:</label>
+        <input type="number" id="numImages" value="20" min="1">
+        
+        <button onclick="generateImageTags()">Generate Image Tags</button>
+        
+        <div class="result">
+            <h2>Generated Tags</h2>
+            <textarea id="output" readonly></textarea>
+        </div>
+    </div>
+    
+    <script>
+        function generateImageTags() {
+            const blobLink = document.getElementById('blobLink').value.trim();
+            const prefix = document.getElementById('prefix').value.trim();
+            const numImages = parseInt(document.getElementById('numImages').value.trim(), 10);
+            
+            let output = '';
+            
+            for (let i = 1; i <= numImages; i++) {
+                const imageNumber = String(i).padStart(2, '0');
+                const imageUrl = `${blobLink}/${prefix}-${imageNumber}`;
+                const imgTag = `<img src="${imageUrl}" alt="${prefix}-${imageNumber}">\n`;
+                output += imgTag;
+            }
+            
+            document.getElementById('output').value = output;
+        }
+    </script>
 </body>
 </html>

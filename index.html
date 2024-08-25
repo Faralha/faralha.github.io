@@ -41,10 +41,14 @@
         <input type="text" id="prefix" value="MAHOAKO-01">
         
         <label for="numImages">Number of Images:</label>
-        <input type="number" id="numImages" value="20" min="1">
+        <input type="number" id="numImages" value="30" min="1">
         
         <label for="fileExtension">Image File Extension:</label>
         <input type="text" id="fileExtension" value="jpg">
+        
+        <label>
+            <input type="checkbox" id="zeroBasedIndex"> Use zero-based index
+        </label>
         
         <button onclick="generateImageTags()">Generate Image Tags</button>
         
@@ -61,10 +65,11 @@
             const prefix = document.getElementById('prefix').value.trim();
             const numImages = parseInt(document.getElementById('numImages').value.trim(), 10);
             const fileExtension = document.getElementById('fileExtension').value.trim();
+            const zeroBasedIndex = document.getElementById('zeroBasedIndex').checked;
             
             let output = '';
             
-            for (let i = 1; i <= numImages; i++) {
+            for (let i = (zeroBasedIndex ? 0 : 1); i < (zeroBasedIndex ? numImages : numImages + 1); i++) {
                 const imageNumber = String(i).padStart(2, '0');
                 const imageUrl = `${blobLink}/${prefix}-${imageNumber}.${fileExtension}`;
                 const imgTag = `<img src="${imageUrl}" alt="${prefix}-${imageNumber}">\n`;
